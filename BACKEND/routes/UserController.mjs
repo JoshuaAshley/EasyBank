@@ -25,7 +25,7 @@ const registerLimiter = rateLimit({
 
 // Registration route
 router.post('/register', registerLimiter, async (req, res) => {
-  const { firstName, lastName, username, identificationNumber, accountNumber, password } = req.body;
+  const { firstName, lastName, username, identificationNumber, accountNumber, accountType, password } = req.body;
 
   try {
     // Check if username or account number already exists
@@ -45,6 +45,7 @@ router.post('/register', registerLimiter, async (req, res) => {
       username,
       identificationNumber,
       accountNumber,
+      accountType,
       password: hashedPassword
     };
 
