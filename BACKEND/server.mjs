@@ -4,6 +4,7 @@ import fs from 'fs';
 import cors from 'cors'; // Import the CORS package
 import cookieParser from 'cookie-parser'; // Import cookie-parser
 import UserController from './routes/UserController.mjs'; // Import your UserController routes
+import PaymentController from './routes/PaymentController.mjs'; // Import your PaymentController routes
 
 const PORT = 3001;
 const app = express();
@@ -32,7 +33,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Use the UserController routes
-app.use(urlPrefix + 'users', UserController); // Mount UserController to handle /api/users routes
+app.use(urlPrefix + 'users', UserController);
+app.use(urlPrefix + 'payments', PaymentController);
 
 // Health Check Endpoint
 app.get(urlPrefix + 'health', (req, res) => {

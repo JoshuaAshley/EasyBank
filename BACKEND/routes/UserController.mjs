@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit'; 
 import helmet from 'helmet'; 
-import { addUser, findUserByUsername, findUserByAccountNumber } from '../db/conn.mjs';
+import { addUser, findUserByUsername, findUserByAccountNumber, findUserByIdentificationNumber } from '../db/conn.mjs';
 import pkg from 'validator'; // Import the default export from validator
 const { escape, trim } = pkg; // Destructure the functions you need
 
@@ -53,7 +53,7 @@ router.post('/register', registerLimiter, async (req, res) => {
   }
 
   try {
-    const existingUser = await findUserByUsername(username) || await findUserByAccountNumber(accountNumber) || identificationNumber;
+    const existingUser = await findUserByUsername(username) || await findUserByAccountNumber(accountNumber) || await findUserByAccountNumber(identificationNumber);
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
     const hashedPassword = await bcrypt.hash(password, 10);

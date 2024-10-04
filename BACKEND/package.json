@@ -28,6 +28,7 @@
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.0",
     "react-router-dom": "^6.26.2",
+    "uuid": "^10.0.0",
     "validator": "^13.12.0"
   }
 }
