@@ -1,7 +1,6 @@
 // conn.mjs
-import { MongoClient } from "mongodb";
+import { MongoClient, ObjectId  } from "mongodb";
 import dotenv from "dotenv";
-import { v4 as uuidv4 } from 'uuid'; // Import UUID generation
 
 dotenv.config();
 
@@ -73,18 +72,83 @@ export const addPayment = async (username, paymentRecord) => {
   const user = await findUserByUsername(username);
   if (!user) throw new Error("User not found");
 
-  // Generate a UUID for the payment
-  const paymentId = uuidv4();
-
-  // Prepare the payment record
-  const paymentData = {
-    ...paymentRecord,
-    paymentId,
-  };
-
   // Insert the payment record into a specific collection for the user
   const paymentsCollection = db.collection(`payments_${user.username}`); // Collection named after user ID
-  const result = await paymentsCollection.insertOne(paymentData);
+  const result = await paymentsCollection.insertOne(paymentRecord);
+  return result;
+};
+
+// Function to get all unverified payments across all users
+export const getAllPaymentsInDatabase = async () => {
+  try {
+    // Get all collections
+    const collections = await db.collections();
+    
+    const allPayments = [];
+
+    // Loop through each collection to find unverified payments
+    for (const collection of collections) {
+      // Check if the collection name starts with 'payments_'
+      if (collection.collectionName.startsWith('payments_')) {
+        try {
+          const payments = await collection.find({ verified: false }).toArray(); // Only fetch unverified payments
+          allPayments.push(...payments);
+        } catch (err) {
+          console.error(`Error fetching payments from collection ${collection.collectionName}:`, err);
+        }
+      }
+    }
+
+    return allPayments;
+  } catch (error) {
+    console.error('Error fetching all payments:', error); // Log the error
+    throw new Error('Failed to fetch all payments');
+  }
+};
+
+// Function to get unverified payments for a specific user by username
+export const getPaymentsByUsername = async (username) => {
+  try {
+    // Get all collections
+    const collections = await db.collections();
+    
+    const allPayments = [];
+
+    // Loop through each collection to find unverified payments
+    for (const collection of collections) {
+      // Check if the collection name matches 'payments_<username>'
+      if (collection.collectionName === 'payments_' + username) {
+        try {
+          const payments = await collection.find({ verified: false }).toArray(); // Only fetch unverified payments
+          allPayments.push(...payments);
+        } catch (err) {
+          console.error(`Error fetching payments from collection ${collection.collectionName}:`, err);
+        }
+      }
+    }
+
+    return allPayments;
+  } catch (error) {
+    console.error('Error fetching user payments:', error); // Log the error
+    throw new Error('Failed to fetch user payments');
+  }
+};
+
+export const getPaymentById = async (username, paymentId) => {
+  const user = await findUserByUsername(username);
+  if (!user) throw new Error("User not found");
+
+  const paymentsCollection = db.collection(`payments_${user.username}`);
+  const payment = await paymentsCollection.findOne({ _id: new ObjectId(paymentId) }); // Ensure you import ObjectId
+  return payment;
+};
+
+export const verifyPaymentById = async (username, paymentId) => {
+  const paymentsCollection = `payments_${username}`; // Collection specific to the user
+  const result = await db.collection(paymentsCollection).updateOne(
+    { _id: new ObjectId(paymentId) }, // Use ObjectId to find the payment
+    { $set: { verified: true } } // Set verified to true
+  );
   return result;
 };
 
