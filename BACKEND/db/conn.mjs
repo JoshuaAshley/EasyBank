@@ -56,5 +56,15 @@ export const findUserByAccountNumber = async (accountNumber) => {
   }
 };
 
+export const findUserByIdentificationNumber = async (identificationNumber) => {
+  try {
+    const user = await db.collection("users").findOne({ identificationNumber });
+    return user;
+  } catch (err) {
+    console.error("Error finding user: ", err);
+    throw err;
+  }
+};
+
 // Export the connection and database
 export { db, conn };

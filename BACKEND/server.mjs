@@ -2,6 +2,7 @@ import express from 'express';
 import https from 'https';
 import fs from 'fs';
 import cors from 'cors'; // Import the CORS package
+import cookieParser from 'cookie-parser'; // Import cookie-parser
 import UserController from './routes/UserController.mjs'; // Import your UserController routes
 
 const PORT = 3001;
@@ -26,6 +27,9 @@ app.use(cors(corsOptions));
 
 // Middleware for parsing JSON requests
 app.use(express.json());
+
+// Add cookie-parser middleware
+app.use(cookieParser());
 
 // Use the UserController routes
 app.use(urlPrefix + 'users', UserController); // Mount UserController to handle /api/users routes
