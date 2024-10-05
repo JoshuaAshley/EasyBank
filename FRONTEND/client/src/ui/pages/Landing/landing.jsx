@@ -8,8 +8,8 @@ const LandingPage = () => {
       <nav className="navbar">
         <Link to="/" className="navbar-title">EasyBank</Link>
         <div className="navbar-links">
-          <Link to="/employee-portal" className="nav-link">Employee Portal</Link>
-          <Link to="/customer-portal" className="nav-link">Customer Portal</Link>
+          <Link to="/login" className="nav-link">Employee Portal</Link>
+          <Link to="/login" className="nav-link">Customer Portal</Link>
         </div>
       </nav>
       
@@ -24,7 +24,7 @@ const LandingPage = () => {
           </p>
           <div className="landing-buttons">
             <Link to="/register" className="sign-up-btn">Sign Up</Link>
-            <button className="watch-demo-btn">Watch Demo</button>
+            <Link to="https://youtu.be/dQw4w9WgXcQ?si=D0dQEFohaBqIboHa&t=0" className="watch-demo-btn">Watch Demo</Link>
           </div>
         </div>
 

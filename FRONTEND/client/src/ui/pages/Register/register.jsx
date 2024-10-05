@@ -69,7 +69,7 @@ const Register = () => {
       <div className="register-box">
         <h2 className="register-title">Register</h2>
         <p className="register-subtitle">
-          Please enter valid credentials to begin the first phase of the registration process.
+          Please enter valid credentials to complete the registration process for a customer.
         </p>
         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
           <input
@@ -138,7 +138,7 @@ const Register = () => {
           />
           {errors.password && <span className="error-message">{errors.password.message}</span>}
         
-          <button type="submit" className="submit-btn">Proceed →</button>
+          <button type="submit" className="submit-btn">Register</button>
         </form>
         <p className="login-link">
           Return to <Link to="/login">Login</Link>
