@@ -88,7 +88,7 @@ router.post('/login', loginLimiter, async (req, res) => {
 
     // Use a strong, securely stored secret for JWT
     const token = jwt.sign({ userId: user._id }, "this_is_not_a_real_secret", { expiresIn: '1h' }); // Use a strong secret
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json({ message: 'Login successful', token, userDetails: user });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
   }

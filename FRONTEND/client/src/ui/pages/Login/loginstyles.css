@@ -1,0 +1,96 @@
+/* Global CSS Reset for box-sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.register-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; 
+    text-align: center;
+    position: relative; 
+    background-image: url('/public/images/background.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.register-container::before {
+    content: ""; /* Required for the pseudo-element */
+    position: absolute; /* Position it over the container */
+    top: 0; /* Cover the entire container */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.322); /* White overlay with 50% opacity */
+    z-index: 1; /* Ensure it’s on top of the background */
+  }
+
+.register-box {
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+    padding: 20px 40px; 
+    max-width: 500px; 
+    width: 100%; 
+    margin-top: 50px;
+    z-index: 2;
+}
+
+.register-title {
+    font-size: 28px; 
+    font-weight: bold; 
+    margin-bottom: 10px; 
+    color: #0808EB;
+}
+
+.register-subtitle {
+    font-size: 16px; 
+    color: #272727; 
+    margin-bottom: 20px; 
+}
+
+.register-form {
+    width: 100%;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.input-field {
+    width: 100%; /* This will be 100% of its parent */
+    padding: 10px; 
+    margin: 10px 0; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px; 
+}
+
+.submit-btn {
+    background-color: #0808EB; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    margin-top: 20px;
+    border-radius: 5px; 
+    font-size: 18px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    width: 100%; 
+}
+
+.submit-btn:hover {
+    background-color: #0505d6; 
+}
+
+.error-message {
+    color: red; 
+    font-size: 14px; 
+    text-align: left; /* Align error messages to the left */
+    width: 100%; /* Ensure it takes full width to align with input fields */
+}

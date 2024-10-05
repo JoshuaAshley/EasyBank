@@ -1,1 +1,168 @@
-/* code here */
+/* Container for the entire landing page */
+.landing-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  position: relative; /* Make this relative to position the overlay */
+  background-image: url('/public/images/background.png'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.landing-container::before {
+  content: ""; /* Required for the pseudo-element */
+  position: absolute; /* Position it over the container */
+  top: 0; /* Cover the entire container */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.322); /* White overlay with 50% opacity */
+  z-index: 1; /* Ensure it’s on top of the background */
+}
+
+.navbar {
+  z-index: 2; /* Ensure the navbar is above the overlay */
+}
+
+.navbar {
+  width: 100%;
+  background-color: #0808EB;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
+.navbar-title {
+  font-size: 24px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-title:hover {
+  text-decoration: underline;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+/* Main content styling */
+.landing-content {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 80px); /* Adjust for navbar height */
+  box-sizing: border-box;
+}
+
+/* Left section styling */
+.left-section {
+  flex: 1;
+  display: flex; /* Ensure the left section is a flex container */
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start;
+  padding: 0 40px; /* Horizontal padding for alignment */
+  margin-left: 5%; /* Move it to the middle horizontally */
+  margin-top: -5%;
+  z-index: 2;
+}
+
+.landing-heading {
+  font-size: 60px; /* Increased font size */
+  font-weight: bold;
+  text-align: left; /* Align text to the left */
+}
+
+.easy-text {
+  color: black;
+}
+
+.bank-text {
+  color: #0808EB; /* Blue/purple color */
+}
+
+.landing-subheading {
+  font-size: 28px; /* Increased font size */
+  color: black;
+  margin-top: -10px;
+  text-align: left; /* Align text to the left */
+}
+
+.landing-description {
+  font-size: 20px; /* Increased font size */
+  color: #272727;
+  max-width: 600px;
+  font-weight: 600;
+  text-align: left; /* Align text to the left */
+}
+
+.landing-buttons {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.sign-up-btn {
+  background-color: #0808EB;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.sign-up-btn:hover {
+  background-color: #0505d6;
+}
+
+.watch-demo-btn {
+  background-color: white;
+  border: 2px solid #0808EB;
+  color: #0808EB;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.watch-demo-btn:hover {
+  background-color: #0808EB;
+  color: white;
+}
+
+/* Right section styling */
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.landing-image {
+  max-width: 70%; /* Make the image smaller */
+  height: auto;
+  max-height: 80%; /* Prevent it from being too tall */
+  transform: scaleX(-1); /* Invert the image horizontally */
+  z-index: 2;
+}
