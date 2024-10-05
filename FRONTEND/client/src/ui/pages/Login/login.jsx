@@ -62,8 +62,8 @@ const Login = () => {
       <nav className="navbar">
         <Link to="/" className="navbar-title">EasyBank</Link>
         <div className="navbar-links">
-          <Link to="/employee-portal" className="nav-link">Employee Portal</Link>
-          <Link to="/customer-portal" className="nav-link">Customer Portal</Link>
+          <Link to="/login" className="nav-link">Employee Portal</Link>
+          <Link to="/login" className="nav-link">Customer Portal</Link>
         </div>
       </nav>
       <div className="register-box">
