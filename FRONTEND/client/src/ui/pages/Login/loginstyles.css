@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-.register-container {
+.login-container {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
     background-repeat: no-repeat;
 }
 
-.register-container::before {
+.login-container::before {
     content: ""; /* Required for the pseudo-element */
     position: absolute; /* Position it over the container */
     top: 0; /* Cover the entire container */
@@ -30,7 +30,7 @@
     z-index: 1; /* Ensure it’s on top of the background */
   }
 
-.register-box {
+.login-box {
     background: white; 
     border-radius: 10px; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
@@ -41,20 +41,20 @@
     z-index: 2;
 }
 
-.register-title {
+.login-title {
     font-size: 28px; 
     font-weight: bold; 
     margin-bottom: 10px; 
     color: #0808EB;
 }
 
-.register-subtitle {
+.login-subtitle {
     font-size: 16px; 
     color: #272727; 
     margin-bottom: 20px; 
 }
 
-.register-form {
+.login-form {
     width: 100%;
     display: flex; 
     flex-direction: column; 
@@ -93,4 +93,9 @@
     font-size: 14px; 
     text-align: left; /* Align error messages to the left */
     width: 100%; /* Ensure it takes full width to align with input fields */
+}
+
+.login-link {
+    margin-top: 10px; 
+    font-size: 14px; 
 }

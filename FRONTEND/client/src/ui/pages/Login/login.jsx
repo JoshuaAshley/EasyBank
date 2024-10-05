@@ -62,7 +62,7 @@ const Login = () => {
   };  
 
   return (
-    <div className="register-container">
+    <div className="login-container">
       <nav className="navbar">
         <Link to="/" className="navbar-title">EasyBank</Link>
         <div className="navbar-links">
@@ -70,10 +70,10 @@ const Login = () => {
           <Link to="/login" className="nav-link">Customer Portal</Link>
         </div>
       </nav>
-      <div className="register-box">
-        <h2 className="register-title">Login</h2>
-        <p className="register-subtitle">Welcome back. Please login with your account details.</p>
-        <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
+        <p className="login-subtitle">Welcome back. Please login with your account details.</p>
+        <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
           <input
             type="text"
             placeholder="Username"
