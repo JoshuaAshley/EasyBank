@@ -14,19 +14,6 @@ const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: 
 // Set security headers using helmet
 router.use(helmet());
 
-// Middleware to enforce HTTPS only in production
-const enforceHTTPS = (req, res, next) => {
-  if (process.env.NODE_ENV === 'production' && !req.secure) {
-    // Use a trusted hostname instead of the potentially untrusted req.headers.host
-    const host = process.env.TRUSTED_HOST || 'example.com'; // Use environment variable for host
-
-    return res.redirect(`https://${host}${req.url}`);
-  }
-  next();
-};
-
-router.use(enforceHTTPS);
-
 // Input validation patterns
 const namePattern = /^[a-zA-Z\s]{1,50}$/;
 const usernamePattern = /^[a-zA-Z0-9]{4,30}$/;
