@@ -40,7 +40,11 @@ const Login = () => {
         });
   
         // Navigate to dashboard or any page after successful login
-        console.log(user);
+        if (user.accountType === 'Customer') {
+            navigate('/payment-info');
+        } else {
+            navigate('/employee-dashboard');
+        }
       } else {
         // Handle 401 Unauthorized error
         if (response.status === 401) {

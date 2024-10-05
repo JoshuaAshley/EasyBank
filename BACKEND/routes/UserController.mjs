@@ -27,7 +27,7 @@ const validateInput = (input, regex) => regex.test(input);
 // Registration route with input validation and rate limiting
 // Registration route with enhanced input validation and sanitization
 router.post('/register', registerLimiter, async (req, res) => {
-  const { firstName, lastName, username, accountNumber, identificationNumber, password } = req.body;
+  const { firstName, lastName, username, accountNumber, identificationNumber, accountType, password } = req.body;
 
   // Sanitize inputs
   const sanitizedFirstName = escape(trim(firstName));
@@ -59,7 +59,8 @@ router.post('/register', registerLimiter, async (req, res) => {
       lastName: sanitizedLastName, 
       username: sanitizedUsername, 
       accountNumber: sanitizedAccountNumber, 
-      identificationNumber: sanitizedIdentificationNumber, 
+      identificationNumber: sanitizedIdentificationNumber,
+      accountType: accountType,
       password: hashedPassword 
     };
     const result = await addUser(newUser);

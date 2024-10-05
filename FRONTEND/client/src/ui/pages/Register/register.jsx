@@ -1,9 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { UserContext } from '../../../UserContext';
 import './registerstyles.css';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
 
   // Define regex patterns
@@ -21,7 +24,7 @@ const Register = () => {
       accountNumber: data.accountNumber, // Adjusted for compliance
       password: data.password,
       identificationNumber: data.identificationNumber,
-      accountType: "Customer" // Preset field
+      accountType: "Customer"
     };
 
     console.log(payload); // For debugging purposes
@@ -38,15 +41,50 @@ const Register = () => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log('User registered successfully:', result);
+        try {
+
+          const payload = {
+            username: data.username,
+            accountNumber: data.accountNumber,
+            password: data.password,
+          };
+
+          const response = await fetch("https://localhost:3001/api/v1/users/login", {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            // Set the global user state with user details
+            setUser({
+              token: result.token,
+              ...result.userDetails // Add user details except password
+            });
+      
+            // Navigate to dashboard or any page after successful login
+            if (user.accountType === 'Customer') {
+                navigate('/payment-info');
+            } else {
+                navigate('/employee-dashboard');
+            }
+          }
+        } catch (error) {
+          console.error('An error occurred:', error);
+          alert('An error occurred during login. Please try again.');
+        }
       } else {
         console.error('Registration error:', result.message);
 
         // Handle specific 400 error for existing users
         if (response.status === 400 && result.message === "User already exists") {
-          setError("username", { type: "manual", message: "Username already exists" });
-          setError("identificationNumber", { type: "manual", message: "Identification number already exists" });
-          setError("accountNumber", { type: "manual", message: "Account number already exists" });
+          setError("username", { type: "manual", message: "User already exists" });
+          setError("identificationNumber", { type: "manual", message: "User already exists" });
+          setError("accountNumber", { type: "manual", message: "User already exists" });
         } else {
           alert(result.message); // Display other error messages
         }
