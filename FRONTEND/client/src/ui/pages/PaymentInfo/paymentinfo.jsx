@@ -3,14 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../UserContext';
 import './paymentinfostyles.css';
+import { FormDataContext } from '../../../FormDataContext';
 
 const PaymentInfo = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { setUser } = useContext(UserContext);
+  const { formData, setFormData } = useContext(FormDataContext);
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
+    const finalData = { ...formData, ...data, paymentAmount: parseFloat(data.paymentAmount) };
+
+    setFormData(finalData); // Update the form data state
+    navigate('/account-info');
   };
 
   const handleSignOut = () => {
@@ -29,7 +34,7 @@ const PaymentInfo = () => {
       {/* Breadcrumb */}
       <div className="breadcrumb-container">
         <nav className="breadcrumb">
-          <Link to="/" className="breadcrumb-item">Home</Link> &gt; 
+          <Link to="/home" className="breadcrumb-item">Home</Link> &gt;
           <span className="breadcrumb-item active">Payment Info</span>
         </nav>
       </div>

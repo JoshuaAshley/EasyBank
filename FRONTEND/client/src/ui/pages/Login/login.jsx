@@ -6,7 +6,7 @@ import './loginstyles.css';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
-  const { user, setUser } = useContext(UserContext); // Access setUser from context
+  const { setUser } = useContext(UserContext); // Access setUser from context
   const navigate = useNavigate(); // To redirect user after login
 
   // Define regex patterns
@@ -40,8 +40,8 @@ const Login = () => {
         });
   
         // Navigate to dashboard or any page after successful login
-        if (user.accountType === 'Customer') {
-            navigate('/payment-info');
+        if (result.userDetails.accountType === 'Customer') {
+            navigate('/home');
         } else {
             navigate('/employee-dashboard');
         }
