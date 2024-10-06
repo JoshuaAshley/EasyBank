@@ -8,8 +8,8 @@ import pkg from 'validator'; // Import the default export from validator
 const { escape, trim } = pkg; // Destructure the functions you need
 
 const router = express.Router();
-const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: 'Too many login attempts, try again later.' });
-const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: 'Too many registration attempts, try again later.' });
+const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many login attempts, try again later.' });
+const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many registration attempts, try again later.' });
 
 // Set security headers using helmet
 router.use(helmet());
