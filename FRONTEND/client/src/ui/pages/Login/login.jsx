@@ -41,7 +41,7 @@ const Login = () => {
   
         // Navigate to dashboard or any page after successful login
         if (result.userDetails.accountType === 'Customer') {
-            navigate('/payment-info');
+            navigate('/home');
         } else {
             navigate('/employee-dashboard');
         }

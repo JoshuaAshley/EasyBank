@@ -119,7 +119,7 @@ export const getPaymentsByUsername = async (username) => {
       // Check if the collection name matches 'payments_<username>'
       if (collection.collectionName === 'payments_' + username) {
         try {
-          const payments = await collection.find({ verified: false }).toArray(); // Only fetch unverified payments
+          const payments = await collection.find({ }).toArray(); // Only fetch unverified payments
           allPayments.push(...payments);
         } catch (err) {
           console.error(`Error fetching payments from collection ${collection.collectionName}:`, err);

@@ -8,6 +8,7 @@ import PaymentInfo from './ui/pages/PaymentInfo/paymentinfo';
 import AuthGuard from './AuthGuard'; // Import the AuthGuard
 import AccountInfo from './ui/pages/AccountInfo/accountinfo';
 import { FormDataProvider } from './FormDataContext'; 
+import HomePage from './ui/pages/Home/home';
 
 function App() {
   return (
@@ -19,7 +20,14 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             
-            {/* Protect the PaymentInfo route */}
+            <Route 
+              path="/home"
+              element={
+                <AuthGuard>
+                  <HomePage />
+                </AuthGuard>
+              } 
+            />
             <Route 
               path="/payment-info"
               element={

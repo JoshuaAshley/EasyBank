@@ -82,7 +82,7 @@ const AccountInfo = () => {
       {/* Breadcrumb */}
       <div className="breadcrumb-container">
         <nav className="breadcrumb">
-          <span className="breadcrumb-item">Home</span> &gt;
+          <Link to="/home" className="breadcrumb-item">Home</Link> &gt;
           <Link to="/payment-info" className="breadcrumb-item">Payment Amount</Link> &gt;
           <Link to="/account-info" className="breadcrumb-item active">Account Info</Link>
         </nav>
