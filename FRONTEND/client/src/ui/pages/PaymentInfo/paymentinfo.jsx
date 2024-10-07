@@ -53,7 +53,7 @@ const PaymentInfo = () => {
       <div className="payment-box">
         <h2 className="payment-title">Payment Info</h2>
         <p className="payment-subtitle">Please enter your payment information for the transaction you are about to make.</p>
-        <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="payment-form" onSubmit={handleSubmit(onSubmit)}>
           {/* Payment Amount (only accepts numbers) */}
           <label className="input-label" htmlFor="paymentAmount">Payment Amount</label>
           <input
