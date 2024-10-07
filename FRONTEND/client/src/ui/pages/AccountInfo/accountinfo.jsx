@@ -101,8 +101,8 @@ const AccountInfo = () => {
 
       <div className="account-box">
         <h2 className="account-title">Account Info</h2>
-        <p className="register-subtitle">Please enter your account information to finalize the transaction.</p>
-        <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
+        <p className="account-subtitle">Please enter your account information to finalize the transaction.</p>
+        <form className="account-form" onSubmit={handleSubmit(onSubmit)}>
           
           {/* Account Holder Name */}
           <label className="input-label" htmlFor="accountHolderName">Account Holder Name</label>
