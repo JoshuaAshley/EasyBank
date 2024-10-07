@@ -1,12 +1,23 @@
-// PaymentController.mjs
 import express from 'express';
 import { addPayment, findUserByUsername, getAllPaymentsInDatabase, getPaymentsByUsername, getPaymentById, verifyPaymentById } from '../db/conn.mjs';
 import rateLimit from 'express-rate-limit'; 
 import helmet from 'helmet'; 
+import ExpressBrute from 'express-brute'; // Import Express Brute for brute-force protection
 import pkg from 'validator'; // Import the default export from validator
 const { escape, trim } = pkg; // Destructure the functions you need
 
 const router = express.Router();
+
+// Set up Express Brute for brute-force protection
+const store = new ExpressBrute.MemoryStore(); // Memory store for brute-force protection
+const bruteForce = new ExpressBrute(store, {
+    freeRetries: 5, // Number of allowed attempts before blocking
+    minWait: 5000, // Minimum wait time of 5 seconds after retries are exceeded
+    maxWait: 15 * 60 * 1000, // Maximum wait time of 15 minutes after retries are exceeded
+    lifetime: 60 * 60 // Retry window of 1 hour (reset after this period)
+});
+
+// Set up rate limiting for payment submissions
 const paymentLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: 'Too many payment submissions, try again later.' });
 
 // Set security headers using helmet
@@ -24,8 +35,8 @@ const swiftCodePattern = /^[A-Z0-9]{8,11}$/; // SWIFT code (8-11 characters)
 // Input validation function
 const validateInput = (input, regex) => regex.test(input);
 
-// Payment creation route with input validation
-router.post('/create', paymentLimiter, async (req, res) => {
+// Payment creation route with input validation and brute force protection
+router.post('/create', bruteForce.prevent, paymentLimiter, async (req, res) => {
   const { amount, currency, provider, accountHolderName, bank, accountNumber, swiftCode, username } = req.body;
 
   // Sanitize inputs
@@ -67,20 +78,20 @@ router.post('/create', paymentLimiter, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-  
+
 // Endpoint to view all payments across all users
-router.get('/all-payments', async (req, res) => {
-    try {
-      const payments = await getAllPaymentsInDatabase(); // Call the database function
-      res.status(200).json({ payments }); // Return the list of payments
-    } catch (error) {
-      console.error('Error in /all-payments route:', error); // Log the error
-      res.status(500).json({ message: 'Server error while fetching all payments', error: error.message }); // Return error to client
-    }
+router.get('/all-payments', bruteForce.prevent, async (req, res) => {
+  try {
+    const payments = await getAllPaymentsInDatabase(); // Call the database function
+    res.status(200).json({ payments }); // Return the list of payments
+  } catch (error) {
+    console.error('Error in /all-payments route:', error); // Log the error
+    res.status(500).json({ message: 'Server error while fetching all payments', error: error.message }); // Return error to client
+  }
 });
-  
+
 // Endpoint to get payments for a specific user by username
-router.get('/user-payments/:username', async (req, res) => {
+router.get('/user-payments/:username', bruteForce.prevent, async (req, res) => {
   const { username } = req.params;
 
   try {
@@ -104,45 +115,44 @@ router.get('/user-payments/:username', async (req, res) => {
 });
 
 // Endpoint to get a payment by its ID
-router.get('/user-payments/:username/:paymentId', async (req, res) => {
-    const { username, paymentId } = req.params; // Get username and paymentId from the URL
+router.get('/user-payments/:username/:paymentId', bruteForce.prevent, async (req, res) => {
+  const { username, paymentId } = req.params; // Get username and paymentId from the URL
 
-    try {
-        const payment = await getPaymentById(username, paymentId); // Fetch payment by ID
-        if (!payment) {
-            return res.status(404).json({ message: 'Payment not found' });
-        }
-        res.status(200).json({ payment });
-    } catch (error) {
-        console.error('Error in /user-payments/:username/:paymentId route:', error);
-        res.status(500).json({ message: 'Server error while fetching payment', error: error.message });
+  try {
+    const payment = await getPaymentById(username, paymentId); // Fetch payment by ID
+    if (!payment) {
+      return res.status(404).json({ message: 'Payment not found' });
     }
+    res.status(200).json({ payment });
+  } catch (error) {
+    console.error('Error in /user-payments/:username/:paymentId route:', error);
+    res.status(500).json({ message: 'Server error while fetching payment', error: error.message });
+  }
 });
 
 // Endpoint to verify a payment
-router.put('/user-payments/:username/:paymentId/verify', async (req, res) => {
-    const { username, paymentId } = req.params; // Get username and paymentId from the URL
-  
-    try {
-      // Find the payment by ID
-      const payment = await getPaymentById(username, paymentId);
-      if (!payment) {
-        return res.status(404).json({ message: 'Payment not found' });
-      }
-  
-      // Call the method to verify the payment
-      const result = await verifyPaymentById(username, paymentId);
-  
-      if (result.modifiedCount === 0) {
-        return res.status(500).json({ message: 'Failed to verify payment' });
-      }
-  
-      res.status(200).json({ message: 'Payment verified successfully' });
-    } catch (error) {
-      console.error('Error in /user-payments/:username/:paymentId/verify route:', error);
-      res.status(500).json({ message: 'Server error while verifying payment', error: error.message });
+router.put('/user-payments/:username/:paymentId/verify', bruteForce.prevent, async (req, res) => {
+  const { username, paymentId } = req.params; // Get username and paymentId from the URL
+
+  try {
+    // Find the payment by ID
+    const payment = await getPaymentById(username, paymentId);
+    if (!payment) {
+      return res.status(404).json({ message: 'Payment not found' });
     }
+
+    // Call the method to verify the payment
+    const result = await verifyPaymentById(username, paymentId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(500).json({ message: 'Failed to verify payment' });
+    }
+
+    res.status(200).json({ message: 'Payment verified successfully' });
+  } catch (error) {
+    console.error('Error in /user-payments/:username/:paymentId/verify route:', error);
+    res.status(500).json({ message: 'Server error while verifying payment', error: error.message });
+  }
 });
-  
 
 export default router;
