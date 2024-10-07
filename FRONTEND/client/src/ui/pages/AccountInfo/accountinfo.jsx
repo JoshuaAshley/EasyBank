@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../UserContext';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 import './accountinfostyles.css';
 import { FormDataContext } from '../../../FormDataContext';
 
@@ -23,17 +24,26 @@ const AccountInfo = () => {
   }, [user, setValue]);
 
   const onSubmit = async (data) => {
-    const username = user.username;
-    const finalData = { ...formData, ...data, username };
+    const sanitizedData = {
+      accountHolderName: DOMPurify.sanitize(data.accountHolderName),
+      accountNumber: DOMPurify.sanitize(data.accountNumber),
+      swiftCode: DOMPurify.sanitize(data.swiftCode),
+      bank: DOMPurify.sanitize(data.bank),
+      paymentAmount: DOMPurify.sanitize(formData.paymentAmount),
+      currency: DOMPurify.sanitize(formData.currency),
+      provider: DOMPurify.sanitize(formData.provider),
+      username: DOMPurify.sanitize(user.username),
+    };
+
     const payload = {
-      amount: finalData.paymentAmount,
-      currency: finalData.currency,
-      provider: finalData.provider,
-      accountHolderName: finalData.accountHolderName,
-      bank: finalData.bank,
-      accountNumber: finalData.accountNumber,
-      swiftCode: finalData.swiftCode,
-      username: finalData.username
+      amount: sanitizedData.paymentAmount,
+      currency: sanitizedData.currency,
+      provider: sanitizedData.provider,
+      accountHolderName: sanitizedData.accountHolderName,
+      bank: sanitizedData.bank,
+      accountNumber: sanitizedData.accountNumber,
+      swiftCode: sanitizedData.swiftCode,
+      username: sanitizedData.username
     };
   
     try {

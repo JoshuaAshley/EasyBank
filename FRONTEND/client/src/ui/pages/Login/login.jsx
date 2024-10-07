@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../UserContext';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 import './loginstyles.css';
 
 const Login = () => {
@@ -15,10 +16,15 @@ const Login = () => {
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   const onSubmit = async (data) => {
+    // Sanitize user inputs
+    const sanitizedUsername = DOMPurify.sanitize(data.username);
+    const sanitizedAccountNumber = DOMPurify.sanitize(data.accountNumber);
+    const sanitizedPassword = DOMPurify.sanitize(data.password);
+
     const payload = {
-      username: data.username,
-      accountNumber: data.accountNumber,
-      password: data.password,
+      username: sanitizedUsername,
+      accountNumber: sanitizedAccountNumber,
+      password: sanitizedPassword,
     };
   
     try {

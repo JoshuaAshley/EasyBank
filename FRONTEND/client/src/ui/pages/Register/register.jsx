@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../UserContext';
+import DOMPurify from 'dompurify';
 import './registerstyles.css';
 
 const Register = () => {
@@ -17,13 +18,18 @@ const Register = () => {
   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
   const onSubmit = async (data) => {
+    // Sanitize user input using DOMPurify
+    const sanitizedData = {
+      firstName: DOMPurify.sanitize(data.firstName),
+      lastName: DOMPurify.sanitize(data.lastName),
+      username: DOMPurify.sanitize(data.username),
+      accountNumber: DOMPurify.sanitize(data.accountNumber),
+      password: DOMPurify.sanitize(data.password),
+      identificationNumber: DOMPurify.sanitize(data.identificationNumber),
+    };
+
     const payload = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      username: data.username,
-      accountNumber: data.accountNumber, // Adjusted for compliance
-      password: data.password,
-      identificationNumber: data.identificationNumber,
+      ...sanitizedData,
       accountType: "Customer"
     };
 
@@ -42,28 +48,27 @@ const Register = () => {
 
       if (response.ok) {
         try {
-
-          const payload = {
-            username: data.username,
-            accountNumber: data.accountNumber,
-            password: data.password,
+          const loginPayload = {
+            username: sanitizedData.username,
+            accountNumber: sanitizedData.accountNumber,
+            password: sanitizedData.password,
           };
 
-          const response = await fetch("https://localhost:3001/api/v1/users/login", {
+          const loginResponse = await fetch("https://localhost:3001/api/v1/users/login", {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(loginPayload),
           });
 
-          const result = await response.json();
+          const loginResult = await loginResponse.json();
 
-          if (response.ok) {
+          if (loginResponse.ok) {
             // Set the global user state with user details
             setUser({
-              token: result.token,
-              ...result.userDetails // Add user details except password
+              token: loginResult.token,
+              ...loginResult.userDetails // Add user details except password
             });
       
             // Navigate to dashboard or any page after successful login

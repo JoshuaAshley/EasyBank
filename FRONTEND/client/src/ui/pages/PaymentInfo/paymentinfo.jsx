@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { UserContext } from '../../../UserContext';
 import './paymentinfostyles.css';
 import { FormDataContext } from '../../../FormDataContext';
+import DOMPurify from 'dompurify'; // Import DOMPurify
 
 const PaymentInfo = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -11,8 +12,19 @@ const PaymentInfo = () => {
   const { formData, setFormData } = useContext(FormDataContext);
   const navigate = useNavigate();
 
+  const sanitizeInput = (input) => {
+    return DOMPurify.sanitize(input);
+  };
+
   const onSubmit = async (data) => {
-    const finalData = { ...formData, ...data, paymentAmount: parseFloat(data.paymentAmount) };
+    // Sanitize the form inputs
+    const sanitizedData = {
+      paymentAmount: sanitizeInput(data.paymentAmount),
+      currency: sanitizeInput(data.currency),
+      provider: sanitizeInput(data.provider)
+    };
+
+    const finalData = { ...formData, ...sanitizedData, paymentAmount: parseFloat(sanitizedData.paymentAmount) };
 
     setFormData(finalData); // Update the form data state
     navigate('/account-info');
