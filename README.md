@@ -1,12 +1,10 @@
-# EasyA: Pass With Flying Colours
-![Frame 121](https://github.com/user-attachments/assets/f84890cb-514c-4db9-ba08-305aacbbe40b)
+# EasyBank: The Future of Banking is Here
+![EasyBank Banner](https://github.com/user-attachments/assets/05f2f742-03e7-4649-b431-8beb4a24e428)
 
 
 ## Table of Contents
 
 1. [Features](#features)
-2. [EasyA API](#easya-api)
-3. [EasyA Swagger](#easya-swagger)
 4. [Installation](#installation)
 1. [Usage](#usage)
 2. [Support](#support)
@@ -28,18 +26,6 @@
 - **Pomodoro Timer**: Users can use the inbuilt time management tool based on 25 minutes stretches of focused work broken by 5 minute breaks.
 - **Progress Chart**: Users can track how much time they have studied for each question paper.
 - **Profile Settings**: User can update thier profile picture along with personal details.
-
-## EasyA API
-
-repository: https://github.com/JoshuaAshley/easy-a-api.git
-
-This acts as our backend and connection to the Firebase and Firestore databases. The client does not connect to the firestore in anyway the api handles all the backend logic.
-
-## EasyA Swagger
-
-Swagger Link: https://easy-a-api-dbfghva5hkaqgsdc.southafricanorth-01.azurewebsites.net/swagger/index.html
-
-This is our swag!
 
 ## Installation
 
@@ -77,7 +63,7 @@ For support, please email TeamProActive225@gmail.com
 
 ## Figma
 
-[Figma Prototype Link](https://www.figma.com/design/eI1s7gijrcDyq7rXr9v3j5/OPSC?node-id=615-1352&t=jbwTeSKWsHo7zC4t-1)
+[Figma Prototype Link](https://www.figma.com/design/eI1s7gijrcDyq7rXr9v3j5/OPSC?node-id=952-2559&t=4thINdvopTTsU1Vs-1)
 
 ## Authors
 
