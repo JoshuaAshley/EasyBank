@@ -44,6 +44,8 @@ function App() {
                 </AuthGuard>
               } 
             />
+
+            <Route path="*" element={<Login />} />
           </Routes>
         </FormDataProvider>
       </Router>

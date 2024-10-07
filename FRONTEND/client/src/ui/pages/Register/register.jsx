@@ -68,9 +68,8 @@ const Register = () => {
       
             // Navigate to dashboard or any page after successful login
             if (user.accountType === 'Customer') {
+                alert('Registration Successful');
                 navigate('/payment-info');
-            } else {
-                navigate('/employee-dashboard');
             }
           }
         } catch (error) {

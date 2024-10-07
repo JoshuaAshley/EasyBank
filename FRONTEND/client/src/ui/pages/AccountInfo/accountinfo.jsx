@@ -49,6 +49,7 @@ const AccountInfo = () => {
   
       if (response.ok) {
         alert('Payment successful!');
+        navigate("/home");
       } else {
         // Handle 401 Unauthorized error
         if (response.status === 401) {
