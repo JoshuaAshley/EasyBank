@@ -16,16 +16,11 @@
 
 ### Part 2 Features
 
-- **Single Sign on**: Users can use the single sign on feature with Google Authentication and it will retrieve the vital information from your profile to update your profile settings.
-- **Study Home Page**: Users can view all their questions papers that they are currently active till the their due date.
-- **Academic Event Chalender**: Users can track all upcoming due dates that they have set.
-- **Create Study Papers**: Users can create a new questions paper where they can enter the name, description, due date and upload a pdf of the paper.
-- **View Study Papers and PDF Viewer**: User can view their created Study Papers along with their PDF paper they uploaded.
-- **Create Study Questions**: Users can create a questions name and upload a photo of the question to their study paper.
-- **View Study Questions**: Users can view all their study questions they have made within the study paper they have created.
-- **Pomodoro Timer**: Users can use the inbuilt time management tool based on 25 minutes stretches of focused work broken by 5 minute breaks.
-- **Progress Chart**: Users can track how much time they have studied for each question paper.
-- **Profile Settings**: User can update thier profile picture along with personal details.
+- **Register**: Users can Register using their Full Name, Email, ID Number, Account Number and Password.
+- **Login**: Users can Login with their Email, Account Number and Password.
+- **Home Dashboard**: Users can view the status of all their Transactions.
+- **Payment Information**: Users can Enter the Payment Amount, Choose Currency and Choose a Currency Provider (Swift).
+- **Account Information**: Users can Enter Their Bank Account Information which includes their Account Holder Name, Bank, Account Number and Swift Code then make their Payment.
 
 ## Installation
 
