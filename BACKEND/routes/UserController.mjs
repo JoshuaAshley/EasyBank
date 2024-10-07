@@ -3,11 +3,23 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import rateLimit from 'express-rate-limit'; 
 import helmet from 'helmet'; 
+import ExpressBrute from 'express-brute'; // Import Express Brute for brute-force protection
 import { addUser, findUserByUsername, findUserByAccountNumber, findUserByIdentificationNumber } from '../db/conn.mjs';
 import pkg from 'validator'; // Import the default export from validator
 const { escape, trim } = pkg; // Destructure the functions you need
 
 const router = express.Router();
+
+// Configure Express Brute for brute-force protection
+const store = new ExpressBrute.MemoryStore(); // Memory store for this example
+const bruteForce = new ExpressBrute(store, {
+    freeRetries: 5, // Allow 5 free retries
+    minWait: 5000, // Start with 5 seconds wait after retries are used up
+    maxWait: 60 * 1000, // Maximum wait time of 1 minute
+    lifetime: 60 * 60 // Brute force data persists for 1 hour
+});
+
+// Set rate limiters for login and registration
 const loginLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many login attempts, try again later.' });
 const registerLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many registration attempts, try again later.' });
 
@@ -25,8 +37,7 @@ const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 const validateInput = (input, regex) => regex.test(input);
 
 // Registration route with input validation and rate limiting
-// Registration route with enhanced input validation and sanitization
-router.post('/register', registerLimiter, async (req, res) => {
+router.post('/register', bruteForce.prevent, registerLimiter, async (req, res) => {
   const { firstName, lastName, username, accountNumber, identificationNumber, accountType, password } = req.body;
 
   // Sanitize inputs
@@ -71,7 +82,7 @@ router.post('/register', registerLimiter, async (req, res) => {
 });
 
 // Login route with enhanced security
-router.post('/login', loginLimiter, async (req, res) => {
+router.post('/login', bruteForce.prevent, loginLimiter, async (req, res) => {
   const { username, accountNumber, password } = req.body;
 
   // Sanitize inputs
@@ -94,6 +105,5 @@ router.post('/login', loginLimiter, async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 });
-
 
 export default router;
