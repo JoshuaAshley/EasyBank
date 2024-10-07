@@ -5,8 +5,6 @@
 ## Table of Contents
 
 1. [Features](#features)
-2. [EasyA API](#easya-api)
-3. [EasyA Swagger](#easya-swagger)
 4. [Installation](#installation)
 1. [Usage](#usage)
 2. [Support](#support)
@@ -28,18 +26,6 @@
 - **Pomodoro Timer**: Users can use the inbuilt time management tool based on 25 minutes stretches of focused work broken by 5 minute breaks.
 - **Progress Chart**: Users can track how much time they have studied for each question paper.
 - **Profile Settings**: User can update thier profile picture along with personal details.
-
-## EasyA API
-
-repository: https://github.com/JoshuaAshley/easy-a-api.git
-
-This acts as our backend and connection to the Firebase and Firestore databases. The client does not connect to the firestore in anyway the api handles all the backend logic.
-
-## EasyA Swagger
-
-Swagger Link: https://easy-a-api-dbfghva5hkaqgsdc.southafricanorth-01.azurewebsites.net/swagger/index.html
-
-This is our swag!
 
 ## Installation
 
