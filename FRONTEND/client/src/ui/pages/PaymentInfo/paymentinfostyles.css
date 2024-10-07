@@ -66,7 +66,7 @@
     color: #272727;
 }
 
-.register-box {
+.payment-box {
     background: white; 
     border-radius: 10px; 
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
@@ -77,14 +77,14 @@
     z-index: 2;
 }
 
-.register-title {
+.payment-title {
     font-size: 28px; 
     font-weight: bold; 
     margin-bottom: 10px; 
     color: #0808EB;
 }
 
-.register-subtitle {
+.payment-subtitle {
     font-size: 16px; 
     color: #272727; 
     margin-bottom: 20px; 

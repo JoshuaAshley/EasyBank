@@ -50,9 +50,9 @@ const PaymentInfo = () => {
           <span className="breadcrumb-item active">Payment Info</span>
         </nav>
       </div>
-      <div className="register-box">
-        <h2 className="register-title">Payment Info</h2>
-        <p className="register-subtitle">Please enter your payment information for the transaction you are about to make.</p>
+      <div className="payment-box">
+        <h2 className="payment-title">Payment Info</h2>
+        <p className="payment-subtitle">Please enter your payment information for the transaction you are about to make.</p>
         <form className="register-form" onSubmit={handleSubmit(onSubmit)}>
           {/* Payment Amount (only accepts numbers) */}
           <label className="input-label" htmlFor="paymentAmount">Payment Amount</label>
