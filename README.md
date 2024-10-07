@@ -1,7 +1,6 @@
 # EasyBank: The Future of Banking is Here
 ![EasyBank Banner](https://github.com/user-attachments/assets/05f2f742-03e7-4649-b431-8beb4a24e428)
 
-
 ## Table of Contents
 
 1. [Features](#features)
