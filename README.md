@@ -26,9 +26,9 @@
 
 To install EasyA, follow these simple steps:
 
-1. Open Android Studio and select 'Get from VCS'.
-3. Clone the repository: https://github.com/JoshuaAshley/easy-a-client.git
-4. Wait for GRADLE to build.
+1. Open Visual Studio Cide and Select Clone Repository
+3. Clone the repository: https://github.com/JoshuaAshley/EasyBank.git
+4. Wait for GRADLE to build
 5. Run the Client Project by clicking on green play button icon.
 6. Run the app on your device or emulator.
 
@@ -36,14 +36,10 @@ To install EasyA, follow these simple steps:
 
 After installing the app,
 
-- **Sign Up**: Sign up or Log in using an Email and Password or Using Single Sign with Google Authentication.
-- **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing the progress of your study papers still have work to do, if they are created.
-- **Study Papers**: If you want to view / create a study paper tap the Paper icon on your navigation bar. To create a new study paper select "Create Study Paper".
-- **Study Question**: Once your study paper is created you can select it and add question to it by selecting "Create Question".
-- **Pomodoro**: You can use the time management tool to help you get through your work based on 25 minutes stretches of focused work broken by 5 minute breaks.
-- **Academic Chalendar**:  You can track all upcoming due dates that you have set in a chalendar view.
-- **Progress Chart**: You can track how much time they have studied for each question paper.
-- **Profile**: Users can customise their User Profile by adding additional information like a Profile Picture, Name, Gender and Birthday.
+- **Sign Up**: Sign up or Log in using an Email, Account Number, Password.
+- **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing you all previous Transactions.
+- **Payment Information**: You can now enter your Payment Information with Payment Amount, Choose Currency of your choice and Choose a Currency Provider (Swift).
+- **Account Information**: You can now enter your Bank Account Information which includes your Account Holder Name, Bank, Account Number and Swift Code then make your Payment.
   
 For more details on how to use each feature, visit the Help section within the app.
 
