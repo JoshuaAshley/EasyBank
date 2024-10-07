@@ -13,7 +13,7 @@ const router = express.Router();
 // Configure Express Brute for brute-force protection
 const store = new ExpressBrute.MemoryStore(); // Memory store for this example
 const bruteForce = new ExpressBrute(store, {
-    freeRetries: 5, // Allow 5 free retries
+    freeRetries: 100, // Allow 5 free retries
     minWait: 5000, // Start with 5 seconds wait after retries are used up
     maxWait: 60 * 1000, // Maximum wait time of 1 minute
     lifetime: 60 * 60 // Brute force data persists for 1 hour

@@ -56,7 +56,7 @@ const HomePage = () => {
 
         {/* Display the list of payments */}
         <div className="payments-list">
-          {payments.length > 0 ? (
+          {payments && payments.length > 0 ? (
             payments.map(payment => (
               <div key={payment._id} className="payment-item">
                 <h3>Payment of {payment.amount} {payment.currency}</h3>

@@ -7,7 +7,7 @@ import './registerstyles.css';
 
 const Register = () => {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const { register, handleSubmit, formState: { errors }, setError } = useForm();
 
   // Define regex patterns
@@ -72,7 +72,7 @@ const Register = () => {
             });
       
             // Navigate to dashboard or any page after successful login
-            if (user.accountType === 'Customer') {
+            if (loginResult.userDetails.accountType === 'Customer') {
                 alert('Registration Successful');
                 navigate('/payment-info');
             }

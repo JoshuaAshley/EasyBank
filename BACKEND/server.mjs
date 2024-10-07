@@ -39,29 +39,29 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Configure rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per window
-  message: 'Too many requests from this IP, please try again later.'
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 minutes
+//   max: 100, // Limit each IP to 100 requests per window
+//   message: 'Too many requests from this IP, please try again later.'
+// });
 
 // Apply rate limiter to all requests
-app.use(limiter);
+//app.use(limiter);
 
 // Configure Express Brute
-const store = new ExpressBrute.MemoryStore(); // Store brute force data in memory
-const bruteForce = new ExpressBrute(store, {
-    freeRetries: 5, // Number of allowed attempts before blocking
-    minWait: 5000, // Minimum wait time of 5 seconds after retries are exceeded
-    maxWait: 60 * 1000, // Maximum wait time of 1 minute
-    lifetime: 60 * 60 // Brute force data persists for 1 hour
-});
+// const store = new ExpressBrute.MemoryStore(); // Store brute force data in memory
+// const bruteForce = new ExpressBrute(store, {
+//     freeRetries: 5, // Number of allowed attempts before blocking
+//     minWait: 5000, // Minimum wait time of 5 seconds after retries are exceeded
+//     maxWait: 60 * 1000, // Maximum wait time of 1 minute
+//     lifetime: 60 * 60 // Brute force data persists for 1 hour
+// });
 
 // Use the UserController routes with brute force protection for login
-app.use(urlPrefix + 'users', bruteForce.prevent, UserController);
+app.use(urlPrefix + 'users', UserController);
 
 // Use the PaymentController routes with brute force protection for sensitive actions
-app.use(urlPrefix + 'payments', bruteForce.prevent, PaymentController);
+app.use(urlPrefix + 'payments', PaymentController);
 
 // Health Check Endpoint
 app.get(urlPrefix + 'health', (req, res) => {

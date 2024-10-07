@@ -11,14 +11,14 @@ const router = express.Router();
 // Set up Express Brute for brute-force protection
 const store = new ExpressBrute.MemoryStore(); // Memory store for brute-force protection
 const bruteForce = new ExpressBrute(store, {
-    freeRetries: 5, // Number of allowed attempts before blocking
+    freeRetries: 100, // Number of allowed attempts before blocking
     minWait: 5000, // Minimum wait time of 5 seconds after retries are exceeded
     maxWait: 15 * 60 * 1000, // Maximum wait time of 15 minutes after retries are exceeded
     lifetime: 60 * 60 // Retry window of 1 hour (reset after this period)
 });
 
 // Set up rate limiting for payment submissions
-const paymentLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: 'Too many payment submissions, try again later.' });
+const paymentLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100, message: 'Too many payment submissions, try again later.' });
 
 // Set security headers using helmet
 router.use(helmet());
