@@ -25,11 +25,26 @@
 
 To install EasyA, follow these simple steps:
 
-1. Open Visual Studio Cide and Select Clone Repository
-3. Clone the repository: https://github.com/JoshuaAshley/EasyBank.git
-4. Wait for GRADLE to build
-5. Run the Client Project by clicking on green play button icon.
-6. Run the app on your device or emulator.
+1. Open Visual Studio Code and Select Clone Repository
+2. Clone the repository: https://github.com/JoshuaAshley/EasyBank.git
+3. Create a BACKEND folder called `keys`
+4. Generate your own `privatekey.pem` and `certificate.pem` files to add to the folder.
+5. Add a `.env` file with the following code:
+   ```
+   ATLAS_URI="mongodb+srv://teamproactive255:lqISbs6eYA7QAtz8@easybank.mpud5.mongodb.net/?retryWrites=true&w=majority&appName=EasyBank"
+   ```
+6. In a new terminal run the following commands:
+   ```
+   cd BACKEND/
+   npm install
+   npm run dev
+   ```
+7. In a new terminal run the following commands:
+   ```
+   cd FRONTEND/client
+   npm install
+   npm run dev
+   ```
 
 ## Usage
 
