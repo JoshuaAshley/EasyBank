@@ -19,14 +19,13 @@ const options = {
     cert: fs.readFileSync('keys/certificate.pem')
 };
 
-// CORS Configuration
 const corsOptions = {
-    origin: '*', // Allow all origins (for production, consider restricting this to specific domains)
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    origin: 'http://localhost:3000', // Allow requests only from localhost:3000
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed headers
+    credentials: true, // Enable credentials if you're using cookies or sessions
 };
 
-// Apply CORS middleware with the configuration
 app.use(cors(corsOptions));
 
 // Apply helmet for security headers
