@@ -28,8 +28,8 @@ To install EasyA, follow these simple steps:
 1. Open Visual Studio Code and Select Clone Repository
 2. Clone the repository: https://github.com/JoshuaAshley/EasyBank.git
 3. Create a BACKEND folder called `keys`
-4. Generate your own `privatekey.pem` and `certificate.pem` files to add to the folder.
-5. Add a `.env` file with the following code:
+4. Generate your own BACKEND `privatekey.pem` and `certificate.pem` files to add to the folder.
+5. Add a BACKEND `.env` file with the following code:
    ```
    ATLAS_URI="mongodb+srv://teamproactive255:lqISbs6eYA7QAtz8@easybank.mpud5.mongodb.net/?retryWrites=true&w=majority&appName=EasyBank"
    ```
