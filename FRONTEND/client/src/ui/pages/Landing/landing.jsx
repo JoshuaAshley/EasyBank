@@ -24,7 +24,7 @@ const LandingPage = () => {
           </p>
           <div className="landing-buttons">
             <Link to="/register" className="sign-up-btn">Sign Up</Link>
-            <Link to="https://youtu.be/dQw4w9WgXcQ?si=D0dQEFohaBqIboHa&t=0" className="watch-demo-btn">Watch Demo</Link>
+            <Link to="https://www.youtube.com/watch?v=84bhla8lRUM" className="watch-demo-btn">Watch Demo</Link>
           </div>
         </div>
 
