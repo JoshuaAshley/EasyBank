@@ -65,6 +65,29 @@
   color: #272727;
 }
 
+.input-field {
+  width: 100%; /* This will be 100% of its parent */
+  padding: 10px; 
+  margin: 10px 0; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  font-size: 16px; 
+}
+
+.verify-btn {
+  background-color: #0808EB; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  margin-top: 20px;
+  border-radius: 5px; 
+  font-size: 18px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+  width: 100%; 
+  max-width: 200px;
+}
+
 /* Payments Section */
 .payments-section {
     z-index: 2;

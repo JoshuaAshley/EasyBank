@@ -91,7 +91,7 @@ export const getAllPaymentsInDatabase = async () => {
       // Check if the collection name starts with 'payments_'
       if (collection.collectionName.startsWith('payments_')) {
         try {
-          const payments = await collection.find({ verified: false }).toArray(); // Only fetch unverified payments
+          const payments = await collection.find({ verified: "Pending" }).toArray(); // Only fetch unverified payments
           allPayments.push(...payments);
         } catch (err) {
           console.error(`Error fetching payments from collection ${collection.collectionName}:`, err);
@@ -147,7 +147,16 @@ export const verifyPaymentById = async (username, paymentId) => {
   const paymentsCollection = `payments_${username}`; // Collection specific to the user
   const result = await db.collection(paymentsCollection).updateOne(
     { _id: new ObjectId(paymentId) }, // Use ObjectId to find the payment
-    { $set: { verified: true } } // Set verified to true
+    { $set: { verified: "Verified" } } // Set verified to true
+  );
+  return result;
+};
+
+export const declinePaymentById = async (username, paymentId) => {
+  const paymentsCollection = `payments_${username}`; // Collection specific to the user
+  const result = await db.collection(paymentsCollection).updateOne(
+    { _id: new ObjectId(paymentId) }, // Use ObjectId to find the payment
+    { $set: { verified: "Declined" } } // Set verified to true
   );
   return result;
 };

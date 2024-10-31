@@ -7,14 +7,25 @@ const HomePage = () => {
   const [payments, setPayments] = useState([]);
   const { user, setUser } = useContext(UserContext); // Assuming you have user context with the logged-in user's details
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch payments for the logged-in user
+    // Conditionally fetch payments based on the user's account type
     const fetchPayments = async () => {
       try {
-        const response = await fetch(`https://localhost:3001/api/v1/payments/user-payments/${user.username}`);
-        const data = await response.json();
-        setPayments(data.payments);
+        let response;
+        if (user.accountType === 'Customer') {
+          response = await fetch(`https://localhost:3001/api/v1/payments/user-payments/${user.username}`);
+        } else if (user.accountType === 'Employee') {
+          response = await fetch(`https://localhost:3001/api/v1/payments/all-payments`);
+        }
+
+        if (response.ok) {
+          const data = await response.json();
+          setPayments(data.payments);
+        } else {
+          console.error('Failed to fetch payments:', response.statusText);
+        }
       } catch (error) {
         console.error('Error fetching payments:', error);
       }
@@ -34,6 +45,14 @@ const HomePage = () => {
     navigate('/login'); // Redirect to login page
   };
 
+  const handleVerifyPayment = (paymentId, username) => {
+      navigate('/user/' + username + '/transaction-info/' + paymentId);
+  };
+
+  const filteredPayments = payments.filter(payment =>
+    payment.accountHolderName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="register-container">
       <nav className="navbar">
@@ -50,21 +69,45 @@ const HomePage = () => {
         </nav>
       </div>
 
-      {/* Payments List Section */}
+      {/* Payments Section */}
       <div className="payments-section">
-        <button className="create-payment-btn" onClick={handleCreatePayment}>Create New Payment</button>
+        {user.accountType === 'Customer' ? (
+          <button className="create-payment-btn" onClick={handleCreatePayment}>Create New Payment</button>
+        ) : (
+          <input
+            type="text"
+            className="input-field"
+            placeholder="Search payments..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        )}
 
         {/* Display the list of payments */}
         <div className="payments-list">
-          {payments && payments.length > 0 ? (
-            payments.map(payment => (
+          {filteredPayments && filteredPayments.length > 0 ? (
+            filteredPayments.map(payment => (
               <div key={payment._id} className="payment-item">
                 <h3>Payment of {payment.amount} {payment.currency}</h3>
                 <p><strong>Account Holder:</strong> {payment.accountHolderName}</p>
                 <p><strong>Bank:</strong> {payment.bank}</p>
                 <p><strong>Account Number:</strong> {payment.accountNumber}</p>
                 <p><strong>SWIFT Code:</strong> {payment.swiftCode}</p>
-                <p><strong>Status:</strong> {payment.verified ? 'Verified ✅' : 'Pending Verification ⏳'}</p>
+                <p><strong>Status: </strong>
+                  {payment.verified === 'Verified' && 'Verified ✅'}
+                  {payment.verified === 'Pending' && 'Pending Verification ⏳'}
+                  {payment.verified === 'Declined' && 'Declined ❌'}
+                </p>
+
+                {/* Only show the "Verify" button if the user is an Employee */}
+                {user.accountType === 'Employee' && (
+                  <button
+                    className="verify-btn"
+                    onClick={() => handleVerifyPayment(payment._id, payment.username)}
+                  >
+                    Verify
+                  </button>
+                )}
               </div>
             ))
           ) : (

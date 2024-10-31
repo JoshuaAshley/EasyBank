@@ -7,6 +7,7 @@ import Login from './ui/pages/Login/login';
 import PaymentInfo from './ui/pages/PaymentInfo/paymentinfo';
 import AuthGuard from './AuthGuard'; // Import the AuthGuard
 import AccountInfo from './ui/pages/AccountInfo/accountinfo';
+import TransactionInfo from './ui/pages/TransactionInfo/verifytransactioninfo';
 import { FormDataProvider } from './FormDataContext'; 
 import HomePage from './ui/pages/Home/home';
 
@@ -41,6 +42,14 @@ function App() {
               element={
                 <AuthGuard>
                   <AccountInfo />
+                </AuthGuard>
+              } 
+            />
+            <Route 
+              path="/user/:username/transaction-info/:id"
+              element={
+                <AuthGuard>
+                  <TransactionInfo />
                 </AuthGuard>
               } 
             />

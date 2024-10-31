@@ -1,5 +1,5 @@
 import express from 'express';
-import { addPayment, findUserByUsername, getAllPaymentsInDatabase, getPaymentsByUsername, getPaymentById, verifyPaymentById } from '../db/conn.mjs';
+import { addPayment, findUserByUsername, getAllPaymentsInDatabase, getPaymentsByUsername, getPaymentById, verifyPaymentById, declinePaymentById } from '../db/conn.mjs';
 import rateLimit from 'express-rate-limit'; 
 import helmet from 'helmet'; 
 import ExpressBrute from 'express-brute'; // Import Express Brute for brute-force protection
@@ -68,7 +68,7 @@ router.post('/create', bruteForce.prevent, paymentLimiter, async (req, res) => {
       bank: sanitizedBank,
       accountNumber,
       swiftCode,
-      verified: false,
+      verified: "Pending",
       username
     };
 
@@ -149,6 +149,30 @@ router.put('/user-payments/:username/:paymentId/verify', bruteForce.prevent, asy
     }
 
     res.status(200).json({ message: 'Payment verified successfully' });
+  } catch (error) {
+    console.error('Error in /user-payments/:username/:paymentId/verify route:', error);
+    res.status(500).json({ message: 'Server error while verifying payment', error: error.message });
+  }
+});
+
+router.put('/user-payments/:username/:paymentId/decline', bruteForce.prevent, async (req, res) => {
+  const { username, paymentId } = req.params; // Get username and paymentId from the URL
+
+  try {
+    // Find the payment by ID
+    const payment = await getPaymentById(username, paymentId);
+    if (!payment) {
+      return res.status(404).json({ message: 'Payment not found' });
+    }
+
+    // Call the method to verify the payment
+    const result = await declinePaymentById(username, paymentId);
+
+    if (result.modifiedCount === 0) {
+      return res.status(500).json({ message: 'Failed to decline payment' });
+    }
+
+    res.status(200).json({ message: 'Payment declined successfully' });
   } catch (error) {
     console.error('Error in /user-payments/:username/:paymentId/verify route:', error);
     res.status(500).json({ message: 'Server error while verifying payment', error: error.message });

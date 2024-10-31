@@ -51,7 +51,7 @@ const Login = () => {
             navigate('/home');
         } else {
             alert('Login Successful');
-            navigate('/employee-dashboard');
+            navigate('/home');
         }
       } else {
         // Handle 401 Unauthorized error
