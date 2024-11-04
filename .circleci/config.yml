@@ -50,6 +50,10 @@ jobs:
           command: |
             npm install sonar-scanner --save-dev
       - run:
+          name: Set Permissions for SonarScanner
+          command: |
+            chmod +x ./node_modules/sonar-scanner/bin/sonar-scanner
+      - run:
           name: Run SonarCloud Analysis
           command: |
             cd BACKEND
