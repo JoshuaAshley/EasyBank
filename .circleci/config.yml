@@ -3,9 +3,10 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:14  # Use the Node.js Docker image
 
 jobs:
+  # Job to install dependencies and test the backend
   test-backend:
     executor: node-executor
     steps:
@@ -16,11 +17,15 @@ jobs:
             cd BACKEND
             npm install
       - run:
-          name: Run Backend Tests
+          name: Run Backend Tests with Coverage
           command: |
             cd BACKEND
-            npm test
+            npm test -- --coverage # Generate coverage report for SonarCloud
+      - store_artifacts:
+          path: BACKEND/coverage
+          destination: backend-coverage
 
+  # Job to install dependencies and test the frontend
   test-frontend:
     executor: node-executor
     steps:
@@ -31,37 +36,36 @@ jobs:
             cd FRONTEND/client
             npm install
       - run:
-          name: Run Frontend Tests
+          name: Run Frontend Tests with Coverage
           command: |
             cd FRONTEND/client
-            npm test
-      - run:
-          name: Build Frontend
-          command: |
-            cd FRONTEND/client
-            npm run build
+            npm test -- --coverage # Generate coverage report for SonarCloud
+      - store_artifacts:
+          path: FRONTEND/client/coverage
+          destination: frontend-coverage
 
+  # SonarCloud analysis job
   sonarcloud:
-    executor: node-executor
-    steps:
-      - checkout
-      - run:
-          name: Install SonarScanner
-          command: |
-            npm install sonar-scanner --save-dev
-      - run:
-          name: Set Permissions for SonarScanner
-          command: |
-            chmod +x ./node_modules/sonar-scanner/bin/sonar-scanner
-      - run:
-          name: Run SonarCloud Analysis
-          command: |
-            cd BACKEND
-            npx sonar-scanner \
-              -Dsonar.projectKey="EasyBank" \
-              -Dsonar.sources=. \
-              -Dsonar.host.url="https://sonarcloud.io" \
-              -Dsonar.branch.name="${CIRCLE_BRANCH}"
+  executor: node-executor
+  steps:
+    - checkout
+    - run:
+        name: Install SonarScanner
+        command: |
+          npm install sonar-scanner --save-dev
+    - run:
+        name: Set Permissions for SonarScanner
+        command: |
+          chmod +x ./node_modules/sonar-scanner/bin/sonar-scanner
+    - run:
+        name: Run SonarCloud Analysis
+        command: |
+          cd BACKEND
+          npx sonar-scanner \
+            -Dsonar.projectKey="EasyBank" \
+            -Dsonar.sources=. \
+            -Dsonar.host.url="https://sonarcloud.io" \
+            -Dsonar.branch.name="${CIRCLE_BRANCH}"
 
 workflows:
   version: 2
@@ -69,4 +73,7 @@ workflows:
     jobs:
       - test-backend
       - test-frontend
-      - sonarcloud
+      - sonarcloud:
+          requires:
+            - test-backend
+            - test-frontend
