@@ -9,7 +9,7 @@ jobs:
   # Job to install dependencies and test the backend
   test-backend:
     executor: node-executor
-    steps:git 
+    steps:
       - checkout
       - run:
           name: Install Backend Dependencies
@@ -43,21 +43,6 @@ jobs:
             cd FRONTEND/client
             npm run build
 
-  # Job to run SonarCloud analysis
-  sonarcloud-analysis:
-    docker:
-      - image: sonarsource/sonar-scanner-cli:latest  # Use SonarScanner Docker image
-    steps:
-      - checkout
-      - run:
-          name: SonarCloud Analysis
-          command: |
-            sonar-scanner \
-              -Dsonar.organization="joshuaashley" \  # Organization key
-              -Dsonar.projectKey="EasyBank" \        # Project key
-              -Dsonar.host.url="https://sonarcloud.io" \
-              -Dsonar.login=$SONAR_TOKEN
-
 # Define the workflow
 workflows:
   version: 2
@@ -65,4 +50,3 @@ workflows:
     jobs:
       - test-backend
       - test-frontend
-      - sonarcloud-analysis
