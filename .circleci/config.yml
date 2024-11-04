@@ -46,14 +46,15 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install SonarScanner
+          name: Install SonarScanner Locally
           command: |
-            npm install -g sonar-scanner
+            cd BACKEND
+            npm install sonar-scanner --save-dev  # Install SonarScanner locally
       - run:
           name: Run SonarCloud Analysis
           command: |
             cd BACKEND
-            sonar-scanner \
+            npx sonar-scanner \
               -Dsonar.organization="joshuaashley" \
               -Dsonar.projectKey="EasyBank" \
               -Dsonar.sources=. \
