@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:14  # Use the Node.js Docker image
+      - image: circleci/node:16  # Updated to Node.js 16
 
 jobs:
   # Job to install dependencies and test the backend
