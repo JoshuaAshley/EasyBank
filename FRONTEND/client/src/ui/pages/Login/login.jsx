@@ -47,9 +47,11 @@ const Login = () => {
   
         // Navigate to dashboard or any page after successful login
         if (result.userDetails.accountType === 'Customer') {
+            console.log('Customer login successful');
             alert('Login Successful');
             navigate('/home');
         } else {
+            console.log('Employee login successful');
             alert('Login Successful');
             navigate('/home');
         } // NOSONAR
