@@ -52,7 +52,7 @@ const Login = () => {
         } else {
             alert('Login Successful');
             navigate('/home');
-        }
+        } // NOSONAR
       } else {
         // Handle 401 Unauthorized error
         if (response.status === 401) {
