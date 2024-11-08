@@ -33,7 +33,7 @@ describe('Auth Routes', () => {
         accountNumber: '1234567890',
         identificationNumber: '1234567890123',
         accountType: 'savings',
-        password: 'Password123'
+        password: 'Password123'  // NOSONAR
       });
 
       console.log(response.body); // Log response body for troubleshooting
@@ -50,8 +50,8 @@ describe('Auth Routes', () => {
         username: 'johndoe',
         accountNumber: '1234567890',
         identificationNumber: '1234567890123',
-        accountType: 'savings',
-        password: 'Password123'
+        accountType: 'savings', 
+        password: 'Password123'  // NOSONAR
       });
 
       expect(response.status).toBe(400);
@@ -71,7 +71,7 @@ describe('Auth Routes', () => {
       const response = await request(app).post('/auth/login').send({
         username: 'johndoe',
         accountNumber: '1234567890',
-        password: 'Password123'
+        password: 'Password123'  // NOSONAR
       });
 
       expect(response.status).toBe(200);
@@ -85,7 +85,7 @@ describe('Auth Routes', () => {
       const response = await request(app).post('/auth/login').send({
         username: 'johndoe',
         accountNumber: '1234567890',
-        password: 'WrongPassword'
+        password: 'WrongPassword'  // NOSONAR
       });
 
       expect(response.status).toBe(401);
