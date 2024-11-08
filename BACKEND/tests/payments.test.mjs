@@ -1,6 +1,7 @@
 import request from 'supertest';
 import express from 'express';
-import paymentRouter from '../routes/payments.js';
+import paymentRouter from '../routes/PaymentController.mjs'; // Ensure this is the correct path
+
 import {
   addPayment,
   findUserByUsername,
@@ -11,7 +12,15 @@ import {
   declinePaymentById
 } from '../db/conn.mjs';
 
-jest.mock('../db/conn.mjs'); // Mock all database functions
+jest.mock('../db/conn.mjs', () => ({
+  addPayment: jest.fn(),
+  findUserByUsername: jest.fn(),
+  getAllPaymentsInDatabase: jest.fn(),
+  getPaymentsByUsername: jest.fn(),
+  getPaymentById: jest.fn(),
+  verifyPaymentById: jest.fn(),
+  declinePaymentById: jest.fn(),
+}));
 
 const app = express();
 app.use(express.json());
@@ -24,8 +33,8 @@ describe('Payment Routes', () => {
 
   describe('POST /payments/create', () => {
     it('should create a new payment successfully', async () => {
-      findUserByUsername.mockResolvedValue({ username: 'johndoe' }); // Mock user found
-      addPayment.mockResolvedValue({ insertedId: 'payment123' }); // Mock payment insert
+      findUserByUsername.mockResolvedValue({ username: 'johndoe' });
+      addPayment.mockResolvedValue({ insertedId: 'payment123' });
 
       const response = await request(app).post('/payments/create').send({
         amount: '100.00',
@@ -62,7 +71,7 @@ describe('Payment Routes', () => {
 
   describe('GET /payments/all-payments', () => {
     it('should fetch all payments successfully', async () => {
-      getAllPaymentsInDatabase.mockResolvedValue([{ paymentId: 'payment123' }]); // Mock payments
+      getAllPaymentsInDatabase.mockResolvedValue([{ paymentId: 'payment123' }]);
 
       const response = await request(app).get('/payments/all-payments');
 
@@ -75,7 +84,7 @@ describe('Payment Routes', () => {
   describe('GET /payments/user-payments/:username', () => {
     it('should fetch payments by username', async () => {
       findUserByUsername.mockResolvedValue({ username: 'johndoe' });
-      getPaymentsByUsername.mockResolvedValue([{ paymentId: 'payment123' }]); // Mock user payments
+      getPaymentsByUsername.mockResolvedValue([{ paymentId: 'payment123' }]);
 
       const response = await request(app).get('/payments/user-payments/johndoe');
 

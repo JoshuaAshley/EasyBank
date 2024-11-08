@@ -1,10 +1,16 @@
 import request from 'supertest';
 import express from 'express';
-import authRouter from '../routes/auth.js';
+import authRouter from '../routes/UserController.mjs';
+
 import { addUser, findUserByUsername } from '../db/conn.mjs';
 import bcrypt from 'bcrypt';
 
-jest.mock('../db/conn.mjs'); // Mock database functions
+jest.mock('../db/conn.mjs', () => ({
+  addUser: jest.fn(),
+  findUserByUsername: jest.fn(),
+  findUserByAccountNumber: jest.fn(),
+  findUserByIdentificationNumber: jest.fn(),
+}));
 
 const app = express();
 app.use(express.json());
@@ -30,6 +36,7 @@ describe('Auth Routes', () => {
         password: 'Password123'
       });
 
+      console.log(response.body); // Log response body for troubleshooting
       expect(response.status).toBe(201);
       expect(response.body.message).toBe('User registered successfully');
     });
