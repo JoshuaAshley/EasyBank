@@ -63,7 +63,7 @@ After installing the app,
 **Employee Portal**
 - **Login**: Log in using an Email, Account Number, Password.
 - **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing you all pending Transactions you can also search for users..
-- **Payment Information**: Once you select a transaction you view all the details and choose to approve or decline their transaction.
+- **Transaction Information**: Once you select a transaction you view all the details and choose to approve or decline their transaction.
   
 ## Support
 
