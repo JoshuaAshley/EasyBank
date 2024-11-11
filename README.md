@@ -21,6 +21,10 @@
 - **Payment Information**: Users can Enter the Payment Amount, Choose Currency and Choose a Currency Provider (Swift).
 - **Account Information**: Users can Enter Their Bank Account Information which includes their Account Holder Name, Bank, Account Number and Swift Code then make their Payment.
 
+### Part 3 Features
+
+- **Employee**: Employees can login and look at all the pending payments and approve or declined them.
+
 ## Installation
 
 To install EasyA, follow these simple steps:
