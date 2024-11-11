@@ -67,8 +67,7 @@ For support, please email TeamProActive225@gmail.com
 
 ## Video Demonstration
 
-[Part 2](https://www.youtube.com/watch?v=84bhla8lRUM)
-
+[Part 3](https://youtu.be/y99lI4dydNw)
 
 ## Figma
 
