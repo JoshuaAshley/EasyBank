@@ -13,6 +13,11 @@
 4. [Authors](#authors)
 
 ## Employee Login
+```
+username: jdoe42
+account: 1234567897
+password: TestPass123!
+```
 
 ## Features
 
