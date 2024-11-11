@@ -3,6 +3,7 @@
 
 ## Table of Contents
 
+1. [Employee](#employee-login)
 1. [Features](#features)
 4. [Installation](#installation)
 1. [Usage](#usage)
@@ -10,6 +11,8 @@
 2. [Video Demonstration](#video-demonstartion)
 3. [Figma](#figma)
 4. [Authors](#authors)
+
+## Employee Login
 
 ## Features
 
