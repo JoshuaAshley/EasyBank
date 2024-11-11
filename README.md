@@ -53,14 +53,17 @@ To install EasyA, follow these simple steps:
 ## Usage
 
 After installing the app,
-
+**User Portal**
 - **Sign Up**: Sign up or Log in using an Email, Account Number, Password.
 - **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing you all previous Transactions.
 - **Payment Information**: You can now enter your Payment Information with Payment Amount, Choose Currency of your choice and Choose a Currency Provider (Swift).
 - **Account Information**: You can now enter your Bank Account Information which includes your Account Holder Name, Bank, Account Number and Swift Code then make your Payment.
-  
-For more details on how to use each feature, visit the Help section within the app.
 
+**Employee Portal**
+- **Login**: Log in using an Email, Account Number, Password.
+- **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing you all pending Transactions you can also search for users..
+- **Payment Information**: Once you select a transaction you view all the details and choose to approve or decline their transaction.
+  
 ## Support
 
 For support, please email TeamProActive225@gmail.com
