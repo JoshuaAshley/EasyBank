@@ -53,6 +53,7 @@ To install EasyA, follow these simple steps:
 ## Usage
 
 After installing the app,
+
 **User Portal**
 - **Sign Up**: Sign up or Log in using an Email, Account Number, Password.
 - **Home Dashboard**: Once logged in you'll be greeted with your Home Dashboard showing you all previous Transactions.
